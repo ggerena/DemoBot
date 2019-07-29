@@ -24,10 +24,10 @@ class DateResolverDialog extends CancelAndHelpDialog {
     async initialStep(stepContext) {
         const timex = stepContext.options.date;
 
-        const promptMessageText = 'On what date would you like to travel?';
+        const promptMessageText = '¿En qué fecha le gustaría viajar?';
         const promptMessage = MessageFactory.text(promptMessageText, promptMessageText, InputHints.ExpectingInput);
 
-        const repromptMessageText = "I'm sorry, for best results, please enter your travel date including the month, day and year.";
+        const repromptMessageText = "Lo sentimos, para mejores resultados, por favor incluya la fecha del viaje incluyendo mes, día y año.";
         const repromptMessage = MessageFactory.text(repromptMessageText, repromptMessageText, InputHints.ExpectingInput);
 
         if (!timex) {

@@ -59,7 +59,7 @@ class MainDialog extends ComponentDialog {
             return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "Book a flight from Paris to Berlin on March 22, 2020"';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : '¿En qué le puedo ayudar?\nEscriba algo como "Vuelo de Santiago a Tokyo el 24 de Julio de 2020"';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
     }
@@ -98,13 +98,13 @@ class MainDialog extends ComponentDialog {
 
         case 'GetWeather':
             // We haven't implemented the GetWeatherDialog so we just display a TODO message.
-            const getWeatherMessageText = 'TODO: get weather flow here';
+            const getWeatherMessageText = 'TODO: flujo de clima acá';
             await stepContext.context.sendActivity(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
             break;
 
         default:
             // Catch all for unhandled intents
-            const didntUnderstandMessageText = `Sorry, I didn't get that. Please try asking in a different way (intent was ${ LuisRecognizer.topIntent(luisResult) })`;
+            const didntUnderstandMessageText = `Lo siento, no entendí eso. Por favor pregunteme de otra manera (el intent fué ${ LuisRecognizer.topIntent(luisResult) })`;
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
         }
 
@@ -127,7 +127,7 @@ class MainDialog extends ComponentDialog {
         }
 
         if (unsupportedCities.length) {
-            const messageText = `Sorry but the following airports are not supported: ${ unsupportedCities.join(', ') }`;
+            const messageText = `Lo siento, pero los siguientes aeropuertos no están funcionando: ${ unsupportedCities.join(', ') }`;
             await context.sendActivity(messageText, messageText, InputHints.IgnoringInput);
         }
     }
@@ -147,12 +147,12 @@ class MainDialog extends ComponentDialog {
             // If the call to the booking service was successful tell the user.
             const timeProperty = new TimexProperty(result.travelDate);
             const travelDateMsg = timeProperty.toNaturalLanguage(new Date(Date.now()));
-            const msg = `I have you booked to ${ result.destination } from ${ result.origin } on ${ travelDateMsg }.`;
+            const msg = `Le agendé volar hacia ${ result.destination } desde ${ result.origin } en la siguiente fecha: ${ travelDateMsg }.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
         }
 
         // Restart the main dialog with a different message the second time around
-        return await stepContext.replaceDialog(this.initialDialogId, { restartMsg: 'What else can I do for you?' });
+        return await stepContext.replaceDialog(this.initialDialogId, { restartMsg: '¿Qué mas puedo hacer por Usted?' });
     }
 }
 

@@ -37,7 +37,7 @@ class BookingDialog extends CancelAndHelpDialog {
         const bookingDetails = stepContext.options;
 
         if (!bookingDetails.destination) {
-            const messageText = 'To what city would you like to travel?';
+            const messageText = '¿A cuál ciudad le gustaría viajar';
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
@@ -53,8 +53,8 @@ class BookingDialog extends CancelAndHelpDialog {
         // Capture the response to the previous step's prompt
         bookingDetails.destination = stepContext.result;
         if (!bookingDetails.origin) {
-            const messageText = 'From what city will you be travelling?';
-            const msg = MessageFactory.text(messageText, 'From what city will you be travelling?', InputHints.ExpectingInput);
+            const messageText = '¿Cuál es la ciudad de origen?';
+            const msg = MessageFactory.text(messageText, '¿Cuál es la ciudad de origen?', InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
         return await stepContext.next(bookingDetails.origin);
@@ -83,7 +83,7 @@ class BookingDialog extends CancelAndHelpDialog {
 
         // Capture the results of the previous step
         bookingDetails.travelDate = stepContext.result;
-        const messageText = `Please confirm, I have you traveling to: ${ bookingDetails.destination } from: ${ bookingDetails.origin } on: ${ bookingDetails.travelDate }. Is this correct?`;
+        const messageText = `Por favor, confirme que está viajando a: ${ bookingDetails.destination } desde: ${ bookingDetails.origin } en fecha: ${ bookingDetails.travelDate }. ¿Es correcto?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
 
         // Offer a YES/NO prompt.
